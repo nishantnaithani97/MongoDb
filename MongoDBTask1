@@ -1,0 +1,77 @@
+1. List of all databases : show dbs
+
+2. Create new database : use databaseName
+
+3. Inserting data : db.test.insert({ Name : "Nikita Aggarwal", Gender : "Female", Age : 26, Position : "Software Engineer Trainee", Specialization : "Node Experts" })
+WriteResult({ "nInserted" : 1 })
+
+4. Finding the entries : db.test.find({Position : "Software Engineer Trainee"})
+Result : db.test.find({Position : "Software Engineer Trainee"})
+{ "_id" : ObjectId("5a9e8351a8656e8a5d4defcb"), "Name" : "Nishant Naithani", "Gender" : "Male", "Age" : 21, "Position" : "Software Engineer Trainee", "Specialization" : "Node Experts" }
+{ "_id" : ObjectId("5a9e83d5a8656e8a5d4defcc"), "Name" : "Nikita Aggarwal", "Gender" : "Female", "Age" : 26, "Position" : "Software Engineer Trainee", "Specialization" : "Node Experts" }
+{ "_id" : ObjectId("5a9e83eba8656e8a5d4defcd"), "Name" : "Mana Agrawal", "Gender" : "Female", "Age" : 22, "Position" : "Software Engineer Trainee", "Specialization" : "Node Experts" }
+{ "_id" : ObjectId("5a9e8403a8656e8a5d4defce"), "Name" : "Harshvardhan Chauhan", "Gender" : "Male", "Age" : 22, "Position" : "Software Engineer Trainee", "Specialization" : "Node Experts" }
+
+5. Updating the entry : db.test.update({Name : "Nishant Naithani"},
+... {$set : { Position : "Associate Software Engineer"}}
+... )
+Result : Before Update : { "_id" : ObjectId("5a9e8351a8656e8a5d4defcb"), "Name" : "Nishant Naithani", "Gender" : "Male", "Age" : 21, "Position" : "Software Engineer Trainee", "Specialization" : "Node Experts" }
+	 After Update : 
+db.test.find({Position : "Associate Software Engineer"})
+{ "_id" : ObjectId("5a9e8351a8656e8a5d4defcb"), "Name" : "Nishant Naithani", "Gender" : "Male", "Age" : 21, "Position" : "Associate Software Engineer", "Specialization" : "Node Experts" }
+
+6. Removing entry : db.test.remove({Name : "Nikita Aggarwal"})
+Result: WriteResult({ "nRemoved" : 1 })
+
+7. Find One Operation : db.test.findOne({Position : "Software Engineer Trainee"})
+{
+	"_id" : ObjectId("5a9e83eba8656e8a5d4defcd"),
+	"Name" : "Mana Agrawal",
+	"Gender" : "Female",
+	"Age" : 22,
+	"Position" : "Software Engineer Trainee",
+	"Specialization" : "Node Experts"
+}
+
+8. Inserting many records : db.test.insertMany([{Name : "Shradhha", Gender : "Female", Age : 21, Position : "Software Engineer Trainee", Specialization : "Node Experts"},{Name: "Sapne Upreti", Gender : "Female", Age : 25, Position : "Software Engineer", Specialization : "Node Experts" }])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("5a9e8b83a8656e8a5d4defd6"),
+		ObjectId("5a9e8b83a8656e8a5d4defd7")
+	]
+}
+
+9. Updating Records : db.test.updateMany({Position : "Software Engineer Trainee"},
+... {$set : {Position : "Associate Software Engineer"}})
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+
+10. Deleting records :  db.test.deleteMany({Position : "Software Engineer"})
+{ "acknowledged" : true, "deletedCount" : 4 }
+
+11. Counting : db.test.find({Position : "Associate Software Engineer"}).count()
+Result : 4
+
+12. Sorting : db.test.find({}).sort({Name : -1})
+Result:
+{ "_id" : ObjectId("5a9e852ea8656e8a5d4defd2"), "Name" : "Siddharth Pandey", "Gender" : "Male", "Age" : 27, "Position" : "Chief Executive Officer", "Specialization" : [ "Node Experts", "Software Development", "PHP Developer", "ASP.Net" ] }
+{ "_id" : ObjectId("5a9e8b83a8656e8a5d4defd6"), "Name" : "Shradhha", "Gender" : "Female", "Age" : 21, "Position" : "Associate Software Engineer", "Specialization" : "Node Experts" }
+{ "_id" : ObjectId("5a9e8351a8656e8a5d4defcb"), "Name" : "Nishant Naithani", "Gender" : "Male", "Age" : 21, "Position" : "Associate Software Engineer", "Specialization" : "Node Experts" }
+{ "_id" : ObjectId("5a9e854fa8656e8a5d4defd3"), "Name" : "Nikhil Sharma", "Gender" : "Male", "Age" : 27, "Position" : "Chief Technical Officer", "Specialization" : [ "Node Experts", "Software Development", "PHP Developer", "ASP.Net" ] }
+{ "_id" : ObjectId("5a9e83eba8656e8a5d4defcd"), "Name" : "Mana Agrawal", "Gender" : "Female", "Age" : 22, "Position" : "Associate Software Engineer", "Specialization" : "Node Experts" }
+{ "_id" : ObjectId("5a9e8403a8656e8a5d4defce"), "Name" : "Harshvardhan Chauhan", "Gender" : "Male", "Age" : 22, "Position" : "Associate Software Engineer", "Specialization" : "Node Experts" }
+ 
+13. Skipping : db.test.find({}).skip(2)
+Result : { "_id" : ObjectId("5a9e8403a8656e8a5d4defce"), "Name" : "Harshvardhan Chauhan", "Gender" : "Male", "Age" : 22, "Position" : "Associate Software Engineer", "Specialization" : "Node Experts" }
+{ "_id" : ObjectId("5a9e852ea8656e8a5d4defd2"), "Name" : "Siddharth Pandey", "Gender" : "Male", "Age" : 27, "Position" : "Chief Executive Officer", "Specialization" : [ "Node Experts", "Software Development", "PHP Developer", "ASP.Net" ] }
+{ "_id" : ObjectId("5a9e854fa8656e8a5d4defd3"), "Name" : "Nikhil Sharma", "Gender" : "Male", "Age" : 27, "Position" : "Chief Technical Officer", "Specialization" : [ "Node Experts", "Software Development", "PHP Developer", "ASP.Net" ] }
+{ "_id" : ObjectId("5a9e8b83a8656e8a5d4defd6"), "Name" : "Shradhha", "Gender" : "Female", "Age" : 21, "Position" : "Associate Software Engineer", "Specialization" : "Node Experts" }
+
+14. Limit : db.test.find({}).limit(2)
+{ "_id" : ObjectId("5a9e8351a8656e8a5d4defcb"), "Name" : "Nishant Naithani", "Gender" : "Male", "Age" : 21, "Position" : "Associate Software Engineer", "Specialization" : "Node Experts" }
+{ "_id" : ObjectId("5a9e83eba8656e8a5d4defcd"), "Name" : "Mana Agrawal", "Gender" : "Female", "Age" : 22, "Position" : "Associate Software Engineer", "Specialization" : "Node Experts" }
+
+15. Mixing up : db.test.find({}).sort({Name : -1}).limit(2).skip(2
+... )
+{ "_id" : ObjectId("5a9e8351a8656e8a5d4defcb"), "Name" : "Nishant Naithani", "Gender" : "Male", "Age" : 21, "Position" : "Associate Software Engineer", "Specialization" : "Node Experts" }
+{ "_id" : ObjectId("5a9e854fa8656e8a5d4defd3"), "Name" : "Nikhil Sharma", "Gender" : "Male", "Age" : 27, "Position" : "Chief Technical Officer", "Specialization" : [ "Node Experts", "Software Development", "PHP Developer", "ASP.Net" ] }
